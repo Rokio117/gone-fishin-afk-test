@@ -1,8 +1,12 @@
-#lure {
-  display: block;
-  width: 10px;
-  height: 10px;
-  position: absolute;
-  left: 50%;
-  background-color: black;
+/* #testFish {
+  animation: swim 10s;
+} */
+
+@keyframes swim {
+  0% {
+    left: 100%;
+  }
+  100% {
+    left: -10%;
+  }
 }
