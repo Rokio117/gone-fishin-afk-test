@@ -170,3 +170,12 @@
     top: 98%;
   }
 }
+
+.lureButton {
+  width: 40px;
+  height: 40px;
+}
+
+#spawnButton {
+  height: 40px;
+}

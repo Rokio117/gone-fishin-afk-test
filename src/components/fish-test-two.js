@@ -196,6 +196,7 @@ class FishTestTwo extends Component {
     return (
       <>
         <button
+          id="spawnButton"
           onClick={e => {
             e.preventDefault();
             this.setState({ fishSpawn: true });
@@ -206,6 +207,7 @@ class FishTestTwo extends Component {
           Spawn
         </button>
         <button
+          class="lureButton"
           disabled={this.state.moveDisabled}
           onClick={e => {
             e.preventDefault();
@@ -217,6 +219,7 @@ class FishTestTwo extends Component {
           ^
         </button>
         <button
+          class="lureButton"
           disabled={this.state.moveDisabled}
           onClick={e => {
             e.preventDefault();
