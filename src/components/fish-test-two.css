@@ -7,6 +7,10 @@
   }
 }
 
+#fish1 {
+  top: 30vh;
+}
+
 @keyframes d3 {
   0% {
     top: -2%;

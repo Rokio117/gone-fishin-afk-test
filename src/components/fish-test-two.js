@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./fish-test-two.css";
 import "./upAnimations.css";
 import "./fishAnimations.css";
+import fish from "./fish";
 
 class FishTestTwo extends Component {
   constructor(props) {
@@ -16,25 +17,25 @@ class FishTestTwo extends Component {
       moveDisabled: false,
       animationTimingFunction: false,
       fishSpawn: false,
-      slot1: "visible",
-      slot2: "visible",
-      slot3: "visible",
-      slot4: "visible",
-      slot5: "visible",
-      slot6: "visible",
-      slot7: "visible",
-      slot8: "visible",
-      slot9: "visible",
-      slot11: "visible",
-      slot12: "visible",
-      slot13: "visible",
-      slot14: "visible",
-      slot15: "visible",
-      slot16: "visible",
-      slot17: "visible",
-      slot18: "visible",
-      slot19: "visible",
-      slot20: "visible"
+      slot1: { visibility: "visible", fish: "" },
+      slot2: { visibility: "visible", fish: "" },
+      slot3: { visibility: "visible", fish: "" },
+      slot4: { visibility: "visible", fish: "" },
+      slot5: { visibility: "visible", fish: "" },
+      slot6: { visibility: "visible", fish: "" },
+      slot7: { visibility: "visible", fish: "" },
+      slot8: { visibility: "visible", fish: "" },
+      slot9: { visibility: "visible", fish: "" },
+      slot11: { visibility: "visible", fish: "" },
+      slot12: { visibility: "visible", fish: "" },
+      slot13: { visibility: "visible", fish: "" },
+      slot14: { visibility: "visible", fish: "" },
+      slot15: { visibility: "visible", fish: "" },
+      slot16: { visibility: "visible", fish: "" },
+      slot17: { visibility: "visible", fish: "" },
+      slot18: { visibility: "visible", fish: "" },
+      slot19: { visibility: "visible", fish: "" },
+      slot20: { visibility: "visible", fish: "" }
     };
   }
   render() {
@@ -65,7 +66,7 @@ class FishTestTwo extends Component {
     };
 
     const lakeStyles = {
-      height: `850px`,
+      height: `70vh`,
 
       border: "1px solid black"
     };
@@ -111,53 +112,26 @@ class FishTestTwo extends Component {
     };
 
     const fishStyles = fishNumber => {
+      //retrieves slot fish is supposed to be in
       const slotNum = (fishNumber - 1) / 3 + 1;
       //console.log(this.state[`slot${fishNumb}`], fishNumb);
+      const topHeight = fishHeight(fishNumber) - 5 / 2;
       return {
         visibility: this.state[`slot${slotNum}`],
         //display: `${this.state[`slot${fishNumber}`]}`,
-        height: "2%",
+        height: "10%",
         width: "100px",
         backgroundColor: "blue",
         animation: "swim1 16s",
         //marginTop: `${fishHeight(fishNumber)}%`,
+        //position: "absolute",
         position: "relative",
-        top: `${fishHeight(fishNumber)}%`,
-        //top: "1%",
+        //top: `${fishHeight(fishNumber)}%`,
+        top: `${topHeight}%`,
         left: "50%",
         animationTimingFunction: "linear"
       };
     };
-    // const fish1 = () => {
-    //   return <div id="fish" style={fishStyles(1)}></div>;
-    // };
-    // const fish2 = () => {
-    //   return <div id="fish" style={fishStyles(4)}></div>;
-    // };
-    // const fish3 = () => {
-    //   return <div id="fish" style={fishStyles(7)}></div>;
-    // };
-    // const fish4 = () => {
-    //   return <div id="fish" style={fishStyles(25)}></div>;
-    // };
-    // const fish5 = () => {
-    //   return <div id="fish" style={fishStyles(33)}></div>;
-    // };
-    // const fish6 = () => {
-    //   return <div id="fish" style={fishStyles(41)}></div>;
-    // };
-    // const fish7 = () => {
-    //   return <div id="fish" style={fishStyles(49)}></div>;
-    // };
-    // const fish8 = () => {
-    //   return <div id="fish" style={fishStyles(57)}></div>;
-    // };
-    // const fish9 = () => {
-    //   return <div id="fish" style={fishStyles(65)}></div>;
-    // };
-    // const fish10 = () => {
-    //   return <div id="fish" style={fishStyles(73)}></div>;
-    // };
 
     const fishPercent = () => {
       let fishList = [1];
@@ -176,7 +150,7 @@ class FishTestTwo extends Component {
           number++;
           return (
             <div
-              class={`fish${number}`}
+              class={`fish`}
               id={`fish${number}`}
               style={fishStyles(fishNumber)}
             ></div>
@@ -188,51 +162,85 @@ class FishTestTwo extends Component {
     const collisionDetection = () => {
       const collideLure = (this.state.lureTop - 3) / 5 + 1;
       console.log(this.state.lureTop, collideLure);
-      if (this.state[`slot${collideLure}`] === "visible") {
-        this.setState({ [`slot${collideLure}`]: "hidden" });
+      console.log(this.state.moveDisabled, "moveDisabled");
+      if (collideLure > 0) {
+        if (
+          this.state[`slot${collideLure}`].visibility === "visible" &&
+          !this.state.moveDisabled
+        ) {
+          this.setState({ [`slot${collideLure}`.visibility]: "hidden" });
+        }
       }
     };
 
+    const spawnFish = () => {
+      console.log("fish spawned");
+      console.log(this.state.slot1.visibility, "this.state.slot1.visibility");
+      if (!this.state.fishSpawn) {
+        this.setState({ fishSpawn: true });
+        window.setTimeout(collisionDetection, 8000);
+      }
+    };
+    const backgroundStyles = {
+      height: "30vh"
+    };
+
+    // const specialStyles = {
+    //   height: "4%",
+    //   width: "12%",
+    //   backgroundColor: "orange",
+    //   position: "absolute",
+    //   top: "30vh",
+    //   left: "50%",
+    //   marginTop:`${70/}`
+    // };
+
     return (
       <>
-        <button
-          id="spawnButton"
-          onClick={e => {
-            e.preventDefault();
-            this.setState({ fishSpawn: true });
+        <div id="background" style={backgroundStyles}>
+          {spawnFish()}
+          <button
+            id="spawnButton"
+            onClick={e => {
+              e.preventDefault();
+              this.setState({ fishSpawn: true });
 
-            window.setTimeout(collisionDetection, 8000);
-          }}
-        >
-          Spawn
-        </button>
-        <button
-          class="lureButton"
-          disabled={this.state.moveDisabled}
-          onClick={e => {
-            e.preventDefault();
-            this.setState({ moveDisabled: true });
-            animationDuration();
-            raiseLure();
-          }}
-        >
-          ^
-        </button>
-        <button
-          class="lureButton"
-          disabled={this.state.moveDisabled}
-          onClick={e => {
-            e.preventDefault();
-            this.setState({ moveDisabled: true });
-            animationDuration();
-            lowerLure();
-          }}
-        >
-          v
-        </button>
+              window.setTimeout(collisionDetection, 8000);
+            }}
+          >
+            Spawn
+          </button>
+          <button
+            class="lureButton"
+            disabled={this.state.moveDisabled}
+            onClick={e => {
+              e.preventDefault();
+              this.setState({ moveDisabled: true });
+              animationDuration();
+
+              //window.setTimeout(raiseLure(), this.state.lureSpeed * 10);
+              raiseLure();
+            }}
+          >
+            ^
+          </button>
+          <button
+            class="lureButton"
+            disabled={this.state.moveDisabled}
+            onClick={e => {
+              e.preventDefault();
+              this.setState({ moveDisabled: true });
+              animationDuration();
+              lowerLure();
+            }}
+          >
+            v
+          </button>
+        </div>
         <div id="lake" style={lakeStyles}>
           <div id="lure" style={lureStyles}></div>
           {allFish()}
+          {/* <div style={specialStyles}></div> */}
           {/* {fish1()}
           {fish2()}
           {fish3()}
