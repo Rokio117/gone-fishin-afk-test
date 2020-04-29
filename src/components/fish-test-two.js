@@ -35,7 +35,7 @@ class FishTestTwo extends Component {
       slot17: { visibility: "visible", fish: "" },
       slot18: { visibility: "visible", fish: "" },
       slot19: { visibility: "visible", fish: "" },
-      slot20: { visibility: "visible", fish: "" }
+      slot20: { visibility: "visible", fish: "" },
     };
   }
   render() {
@@ -54,10 +54,10 @@ class FishTestTwo extends Component {
       top: `${this.state.lureTop}%`,
       backgroundColor: "black",
       animation: animationFormat(),
-      animationTimingFunction: this.state.animationTimingFunction
+      animationTimingFunction: this.state.animationTimingFunction,
     };
 
-    const animationChoice = direction => {
+    const animationChoice = (direction) => {
       console.log(direction);
       if (direction === "down") {
         console.log("d", this.state.lureTop + 5);
@@ -67,8 +67,7 @@ class FishTestTwo extends Component {
 
     const lakeStyles = {
       height: `70vh`,
-
-      border: "1px solid black"
+      border: "1px solid black",
     };
 
     const raiseLure = () => {
@@ -77,7 +76,7 @@ class FishTestTwo extends Component {
         this.setState({
           lureTop: this.state.lureTop - 5,
           lureAnimation: `${animationChoice("up")}`,
-          animationTimingFunction: "linear"
+          animationTimingFunction: "linear",
         });
       }
     };
@@ -88,7 +87,7 @@ class FishTestTwo extends Component {
         this.setState({
           lureTop: this.state.lureTop + 5,
           lureAnimation: `${animationChoice("down")}`,
-          animationTimingFunction: "linear"
+          animationTimingFunction: "linear",
         });
       }
     };
@@ -107,11 +106,11 @@ class FishTestTwo extends Component {
       this.setState({ moveDisabled: false, animationTimingFunction: false });
     };
 
-    const fishHeight = fishNumber => {
+    const fishHeight = (fishNumber) => {
       return fishNumber;
     };
 
-    const fishStyles = fishNumber => {
+    const fishStyles = (fishNumber) => {
       //retrieves slot fish is supposed to be in
       const slotNum = (fishNumber - 1) / 3 + 1;
       //console.log(this.state[`slot${fishNumb}`], fishNumb);
@@ -129,7 +128,7 @@ class FishTestTwo extends Component {
         //top: `${fishHeight(fishNumber)}%`,
         top: `${topHeight}%`,
         left: "50%",
-        animationTimingFunction: "linear"
+        animationTimingFunction: "linear",
       };
     };
 
@@ -146,7 +145,7 @@ class FishTestTwo extends Component {
     const allFish = () => {
       if (this.state.fishSpawn) {
         let number = 0;
-        return fishPercent().map(fishNumber => {
+        return fishPercent().map((fishNumber) => {
           number++;
           return (
             <div
@@ -182,7 +181,7 @@ class FishTestTwo extends Component {
       }
     };
     const backgroundStyles = {
-      height: "30vh"
+      height: "30vh",
     };
 
     // const specialStyles = {
@@ -201,7 +200,7 @@ class FishTestTwo extends Component {
           {spawnFish()}
           <button
             id="spawnButton"
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               this.setState({ fishSpawn: true });
 
@@ -213,7 +212,7 @@ class FishTestTwo extends Component {
           <button
             class="lureButton"
             disabled={this.state.moveDisabled}
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               this.setState({ moveDisabled: true });
               animationDuration();
@@ -227,7 +226,7 @@ class FishTestTwo extends Component {
           <button
             class="lureButton"
             disabled={this.state.moveDisabled}
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               this.setState({ moveDisabled: true });
               animationDuration();
